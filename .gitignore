@@ -20,6 +20,10 @@
 .DS_Store
 *.pem
 
+# Unused local assets
+neon_rave.zip
+neon_rave_font/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -27,6 +31,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel

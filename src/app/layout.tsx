@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Lora } from 'next/font/google'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
@@ -12,8 +12,63 @@ const anthropicFont = Lora({
 })
 
 export const metadata: Metadata = {
-  title: 'Creative Developer Portfolio',
-  description: 'High-end Scrollytelling Personal Portfolio Website',
+  metadataBase: new URL('https://ajportfolio-one.vercel.app'),
+  title: {
+    default: 'Ajith K V — Creative Developer',
+    template: '%s | Ajith K V',
+  },
+  description:
+    'Full-stack developer & creative technologist specializing in AI-powered products, immersive web experiences, and modern UI/UX.',
+  keywords: [
+    'Ajith K V',
+    'Creative Developer',
+    'Full Stack Developer',
+    'Next.js Portfolio',
+    'React Developer',
+    'AI Developer',
+    'Framer Motion',
+  ],
+  authors: [{ name: 'Ajith K V', url: 'https://github.com/AJAjith0503' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://ajportfolio-one.vercel.app',
+    title: 'Ajith K V — Creative Developer',
+    description:
+      'Full-stack developer & creative technologist specializing in AI-powered products, immersive web experiences, and modern UI/UX.',
+    siteName: 'Ajith K V Portfolio',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Ajith K V — Creative Developer Portfolio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ajith K V — Creative Developer',
+    description:
+      'Full-stack developer & creative technologist specializing in AI-powered products and immersive web experiences.',
+    images: ['/images/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#121212',
+  colorScheme: 'dark',
 }
 
 export default function RootLayout({
