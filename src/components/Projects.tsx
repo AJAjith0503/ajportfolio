@@ -42,7 +42,7 @@ export default function Projects() {
 
         {/* Card Swap Container */}
         <div
-          className="relative w-full h-[500px] md:h-[600px] flex items-center justify-center md:justify-start [perspective:1000px]"
+          className="relative w-full h-[550px] md:h-[600px] flex items-center justify-center md:justify-start [perspective:1000px]"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -71,7 +71,7 @@ export default function Projects() {
                       damping: 25,
                       mass: 0.8,
                     }}
-                    className={`absolute w-full h-[400px] md:h-[480px] rounded-[24px] p-[1px] overflow-hidden ${isFront ? 'cursor-pointer shadow-[0_30px_60px_rgba(0,0,0,0.6)]' : 'pointer-events-none'}`}
+                    className={`absolute w-full h-[460px] md:h-[480px] rounded-[24px] p-[1px] overflow-hidden ${isFront ? 'cursor-pointer shadow-[0_30px_60px_rgba(0,0,0,0.6)]' : 'pointer-events-none'}`}
                     onClick={() => isFront && handleSwap()}
                   >
                     {/* Electric Border Background for Front Card */}
@@ -82,24 +82,24 @@ export default function Projects() {
                     )}
 
                     {/* Card Content */}
-                    <div className={`relative z-10 w-full h-full p-8 md:p-10 rounded-[23px] bg-[#141414] border border-neutral-800/50 flex flex-col justify-between overflow-hidden backdrop-blur-xl transition-all duration-500 ${isFront ? 'hover:bg-[#1a1a1a] hover:border-neutral-700' : ''}`}>
+                    <div className={`relative z-10 w-full h-full p-6 md:p-10 rounded-[23px] bg-[#141414] border border-neutral-800/50 flex flex-col justify-between overflow-hidden backdrop-blur-xl transition-all duration-500 ${isFront ? 'hover:bg-[#1a1a1a] hover:border-neutral-700' : ''}`}>
 
                       {/* Depth Gradient */}
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
 
                       <div className="relative">
-                        <div className="flex items-start justify-between mb-6">
+                        <div className="flex items-start justify-between mb-4 md:mb-6">
                           <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
                           >
-                            <span className="text-[10px] font-bold text-blue-400/90 mb-3 block uppercase tracking-[0.2em]">{project.type}</span>
-                            <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 leading-tight">
+                            <span className="text-[10px] font-bold text-blue-400/90 mb-2 md:mb-3 block uppercase tracking-[0.2em]">{project.type}</span>
+                            <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-white mb-2 md:mb-3 leading-tight">
                               {project.title}
                             </h3>
                           </motion.div>
-                          <div className="flex gap-3">
+                          <div className="flex gap-2 md:gap-3">
                             {project.liveLink && project.liveLink !== '#' && (
                               <motion.a
                                 whileHover={{ scale: 1.1, y: -2 }}
@@ -107,10 +107,10 @@ export default function Projects() {
                                 href={project.liveLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2.5 bg-neutral-900 border border-white/5 rounded-xl text-neutral-400 hover:text-white hover:border-white/20 transition-all shadow-xl"
+                                className="p-2 md:p-2.5 bg-neutral-900 border border-white/5 rounded-xl text-neutral-400 hover:text-white hover:border-white/20 transition-all shadow-xl"
                                 onClick={(e) => e.stopPropagation()}
                               >
-                                <ExternalLink className="w-5 h-5" />
+                                <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                               </motion.a>
                             )}
                             <motion.a
@@ -119,10 +119,10 @@ export default function Projects() {
                               href={project.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="p-2.5 bg-neutral-900 border border-white/5 rounded-xl text-neutral-400 hover:text-white hover:border-white/20 transition-all shadow-xl"
+                              className="p-2 md:p-2.5 bg-neutral-900 border border-white/5 rounded-xl text-neutral-400 hover:text-white hover:border-white/20 transition-all shadow-xl"
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <Github className="w-5 h-5" />
+                              <Github className="w-4 h-4 md:w-5 md:h-5" />
                             </motion.a>
                           </div>
                         </div>
@@ -137,8 +137,8 @@ export default function Projects() {
                         </motion.p>
                       </div>
 
-                      <div className="relative pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
-                        <div className="flex flex-wrap gap-2.5">
+                      <div className="relative pt-4 md:pt-6 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div className="flex flex-wrap gap-2">
                           {project.tags.map((tag, tIndex) => (
                             <motion.span
                               key={tag}
