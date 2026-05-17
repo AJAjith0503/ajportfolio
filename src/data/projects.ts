@@ -43,6 +43,63 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: '11',
+    title: 'FiTusion',
+    type: 'Premium Fitness Web Application',
+    oneLineImpact: 'A high-performance, hyper-interactive fitness web application engineered with a stunning cyberpunk dark/neon-green aesthetic.',
+    description: 'FiTusion is an elite fitness web application built with React 18 and Vite. It utilizes vanilla CSS3, fluid glassmorphic layouts, and hardware-accelerated animations to deliver a state-of-the-art cyber-athletic dashboard. Designed for modern fitness startups, it includes custom biometrics blueprints (BMI/BMR calculations), a high-tech SVG charging loading cycle, an interactive custom coordinate tactical blueprint map, and a 100% mobile-responsive layout stacking engine.',
+    tags: ['React 18', 'Vite', 'Vanilla CSS3', 'Glassmorphism', 'CSS Grid', 'Lucide React', 'Intersection Observer', 'Web Storage API'],
+    link: 'https://github.com/AJAjith0503/gym',
+    liveLink: 'https://gym-seven-chi-61.vercel.app/',
+    problemStatement: {
+      text: 'Designing a high-performance web experience for modern fitness startups demands high-fidelity biometrics calculators, pixel-perfect responsive layouts that preserve absolute overlay designs without viewport overflows, and highly optimized, continuous entrance animations to keep users completely engaged.',
+      stats: [
+        'Absolutely positioned hero elements caused layout wrapping and clipping on mobile devices.',
+        'Traditional emoji symbols rendered inconsistently across operating systems, diluting brand premium feel.',
+        'Excessive IntersectionObserver triggers during rapid scrolling could lead to layout thrashing on low-end mobiles.'
+      ]
+    },
+    motivation: [
+      'Deliver an elite, high-fidelity cyberpunk user interface for the modern fitness landscape.',
+      'Build an ultra-responsive stacking engine that maintains advanced desktop grid overlaps on small viewports.',
+      'Create a seamless, hardware-accelerated scroll reveal system ensuring fluid 60FPS transitions.',
+      'Engineer scientific, dual-unit biometric utilities (Mifflin-St Jeor calculators) with graphical indicator gauges.'
+    ],
+    architecture: {
+      modules: [
+        { name: 'High-Tech Preloader', description: 'A custom SVG circular charging ring preloader counting 0-100% with randomized realistic speed increments and live diagnostics output.' },
+        { name: 'Biometrics Blueprint', description: 'Dual-unit Metric/Imperial calculator calibrating BMI, Mifflin-St Jeor BMR, caloric coefficients, hydration requirements, and dynamic hypertrophy guides.' },
+        { name: 'Continuous Scroll Controller', description: 'Advanced IntersectionObserver state synchronization triggering hardware-accelerated viewport entrance reveals dynamically on both enter and exit.' },
+        { name: 'Tactical Radar HQ Map', description: 'Fully CSS Grid-based blueprint map featuring geometric coordinate grids, street overlays, active central satellite pulse, and custom tooltips.' }
+      ]
+    },
+    metrics: [
+      { name: 'Scroll Performance', result: '60 FPS' },
+      { name: 'Preloader Initializer', result: '100%' },
+      { name: 'Responsiveness', result: '100%' },
+      { name: 'Custom SVG Icons', result: 'Fully Tree-Shaken' }
+    ],
+    innovations: [
+      'High-Tech SVG Charging Cycle: Implemented an SVG stroke-dasharray loading circle paired with dynamic terminal text logs simulating real-time diagnostics before sliding open the main app.',
+      'Sleek Absolute Mobile Positioning: Engineered custom coordinate layout overrides and fluid responsive tokens that scale floating metric badges cleanly on mobile screens with zero viewport overflow.',
+      'Continuous Observer Hook: Designed a robust, repeatable IntersectionObserver routine that resets transitions when elements leave view, allowing gorgeous, repeating scroll reveals.',
+      'Dual-Unit Biometrics Calibration: Built a precise calculation engine covering BMI and BMR using the Mifflin-St Jeor equation, paired with a custom graphical needle gauge that dynamically pivots to show physical state.'
+    ],
+    skills: ['React 18', 'Vite', 'Vanilla CSS3', 'Lucide React', 'Intersection Observer', 'Web Storage API', 'SVG Animation', 'Glassmorphism', 'Responsive Design', 'BMR/BMI Biometrics'],
+    challenges: [
+      'Absolute Layout Overflow on Mobile: Floating hero dashboard badges overlapped beautifully on desktop but caused off-screen clipping on phones. Solved by binding them to scalable absolute coordinates relative to the athlete illustration and sizing them with fluid responsive tokens.',
+      'Platform Emojis Discrepancy: Standard text emojis looked radically different across macOS, Windows, and Android, destroying UI aesthetic unity. Solved by integrating tree-shaken Lucide React SVG outlines and applying styled neon-green drop shadows.',
+      'Scroll Thrashing on Observer Toggles: Multiple IntersectionObserver triggers bound to heavy animations caused CPU spikes. Solved by consolidating element queries into a single, highly performant React-based observer hook using class toggles and GPU-accelerated CSS properties.'
+    ],
+    futureImprovements: [
+      'Real-time workout session tracking utilizing local state storage.',
+      'Interactive dynamic workout planner customizable by biometrics results.',
+      'Web Audio synthesis integration to trigger futuristic diagnostic audio logs.',
+      'Dynamic diet/nutrition generator allowing exportable PDF blueprints.'
+    ],
+    uiuxScreens: []
+  },
+  {
     id: '4',
     title: 'AI-Powered Food Freshness Detection System',
     type: 'Research & Academic Project',
