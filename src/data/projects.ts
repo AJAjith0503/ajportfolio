@@ -378,4 +378,53 @@ export const projects: Project[] = [
       'Direct integration with cloud IDEs (GitHub Codespaces)'
     ]
   },
+  {
+    id: '9',
+    title: 'Sri Vishnu Park',
+    type: 'Premium Restaurant Web Experience',
+    oneLineImpact: 'A premium, animated React web app for a heritage vegetarian restaurant in Bengaluru.',
+    description: 'A high-fidelity, interactive web application designed for a heritage vegetarian restaurant in Bengaluru. The platform blends traditional authenticity with modern web aesthetics, offering a seamless digital dining experience. It features a fully functional online menu, interactive cart system, and an immersive user interface driven by fluid animations.',
+    tags: ['React.js', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
+    link: 'https://github.com/AJAjith0503/restaurant.git',
+    liveLink: 'https://restaurant-seven-jade.vercel.app/',
+    problemStatement: {
+      text: 'Creating a seamless digital dining experience that blends traditional authenticity with modern web aesthetics for a heritage vegetarian restaurant in Bengaluru.',
+      stats: [
+        'Requires an immersive UI to reflect the heritage and quality of the brand.',
+        'Needs a fully functional online menu and interactive cart system.'
+      ]
+    },
+    motivation: [
+      'Showcase premium brand aesthetics with a sophisticated color palette (Deep Espresso #3A2F2F and Antique Gold #C5A46E).',
+      'Provide a 100% mobile-responsive architecture.',
+      'Enhance user engagement via fluid animations and interactive UI elements.'
+    ],
+    architecture: {
+      modules: [
+        { name: 'Interactive Shopping Cart', description: 'Fully reactive slide-out cart for seamless adding of items, quantity adjustment, and mock checkout.' },
+        { name: 'Immersive Animations', description: 'Framer Motion for custom animated preloader, scroll-triggered reveals, and dynamic progress bar.' },
+        { name: 'Custom UI/UX Elements', description: 'Magnetic cursor, interactive star-rating guestbook, and elegant image lightbox for the digital gallery.' },
+        { name: 'Responsive Design', description: 'Custom mobile navigation drawer and optimized fluid typography that adapts perfectly to any screen size.' }
+      ]
+    },
+    innovations: [
+      'Complex State Management: Managed global UI states seamlessly using React Hooks for the shopping cart, checkout modals, and dynamic user reviews.',
+      'Performance Optimization: Built with Vite ensuring heavy animations and video backgrounds load smoothly without degrading performance.',
+      'Robust Error Handling: Integrated a React Error Boundary component to gracefully handle unexpected application crashes.'
+    ],
+    uiuxScreens: [
+      { name: 'Hero Section', image: '/projects/Sri vishnu park/hero.jpeg', layout: 'mobile' },
+      { name: 'Navigation Menu', image: '/projects/Sri vishnu park/navbar.jpeg', layout: 'mobile' },
+      { name: 'Interactive Cart', image: '/projects/Sri vishnu park/cart.jpeg', layout: 'mobile' },
+      { name: 'Menu Items', image: '/projects/Sri vishnu park/items.jpeg', layout: 'mobile' },
+      { name: 'Customer Ratings', image: '/projects/Sri vishnu park/rating.jpeg', layout: 'mobile' },
+      { name: 'Footer Design', image: '/projects/Sri vishnu park/foorter.jpeg', layout: 'mobile' }
+    ],
+    skills: ['React.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'State Management', 'Vite'],
+    challenges: [
+      'Complex State Management across shopping cart and dynamic user reviews.',
+      'Performance Optimization for heavy animations and video backgrounds.',
+      'Ensuring 100% mobile-responsive architecture with fluid typography.'
+    ]
+  }
 ];

@@ -3,16 +3,16 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { 
-  ArrowLeft, 
-  Github, 
-  ExternalLink, 
-  Target, 
-  Cpu, 
-  Database, 
-  BarChart3, 
-  Zap, 
-  ShieldCheck, 
+import {
+  ArrowLeft,
+  Github,
+  ExternalLink,
+  Target,
+  Cpu,
+  Database,
+  BarChart3,
+  Zap,
+  ShieldCheck,
   MessageSquare,
   BookOpen,
   CheckCircle2,
@@ -38,8 +38,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     <main className="min-h-screen bg-[#0a0a0a] text-white selection:bg-blue-500/30">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 p-6 flex justify-between items-center backdrop-blur-md bg-black/20 border-b border-white/5">
-        <Link 
-          href="/#projects" 
+        <Link
+          href="/#projects"
           className="group flex items-center gap-2 text-neutral-400 hover:text-white transition-all"
         >
           <div className="w-8 h-8 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -62,17 +62,17 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 md:px-12 lg:px-24 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6"
           >
             {project.type}
           </motion.span>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -80,8 +80,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           >
             {project.title}
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -90,7 +90,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             {project.oneLineImpact}
           </motion.p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -109,7 +109,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
       {/* Content Sections */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 space-y-32 pb-32">
-        
+
         {/* UI/UX Showcase */}
         {project.uiuxScreens && project.uiuxScreens.some(s => s.image) && (
           <section>
@@ -124,16 +124,16 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {project.uiuxScreens.map((screen, i) => (
                 screen.image && (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     {...fadeIn}
                     transition={{ delay: i * 0.1 }}
                     className={`group flex flex-col gap-4 ${screen.layout === 'desktop' ? 'md:col-span-2 lg:col-span-3' : ''}`}
                   >
                     <div className={`rounded-[2.5rem] bg-neutral-900 border-[8px] border-neutral-800 overflow-hidden relative shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] ${screen.layout === 'desktop' ? 'aspect-video' : 'aspect-[9/19] max-w-[300px] mx-auto'}`}>
-                      <img 
-                        src={screen.image} 
-                        alt={screen.name} 
+                      <img
+                        src={screen.image}
+                        alt={screen.name}
                         className="w-full h-full object-cover object-top"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
@@ -198,11 +198,11 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
               </div>
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Modern Architecture</h2>
             </motion.div>
-            
+
             <div className="flex flex-wrap justify-center gap-6">
               {project.architecture.modules.map((module, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   {...fadeIn}
                   transition={{ delay: i * 0.1 }}
                   className="flex-1 min-w-[280px] max-w-[320px] p-8 rounded-[2rem] bg-neutral-900/40 border border-white/5 hover:bg-neutral-800/60 transition-colors"
@@ -235,7 +235,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                 <div className="space-y-6">
                   {project.aiEngineering.models.map((model, i) => (
                     <div key={i} className="flex items-center gap-6 p-6 rounded-2xl bg-black/20 border border-white/5">
-                      <div className="shrink-0 font-mono text-neutral-600 text-sm">0{i+1}</div>
+                      <div className="shrink-0 font-mono text-neutral-600 text-sm">0{i + 1}</div>
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-bold">{model.name}</span>
@@ -285,11 +285,11 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
               </div>
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Performance Benchmarks</h2>
             </motion.div>
-            
+
             <div className="flex flex-wrap justify-center gap-6">
               {project.metrics.map((metric, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   {...fadeIn}
                   transition={{ delay: i * 0.1 }}
                   className="flex-1 min-w-[180px] max-w-[240px] p-8 rounded-[2rem] bg-neutral-900 border border-white/5 text-center group hover:bg-blue-600 transition-all duration-500 flex flex-col justify-center items-center"
@@ -313,7 +313,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                   return (
                     <div key={i} className="flex gap-6 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 hover:bg-neutral-900 transition-colors h-full">
                       <div className="shrink-0 w-12 h-12 rounded-2xl bg-neutral-900 border border-white/5 flex items-center justify-center text-white font-bold italic">
-                        {i+1}
+                        {i + 1}
                       </div>
                       <div className="flex flex-col justify-center">
                         <h3 className="font-bold mb-1">{title}</h3>
@@ -425,15 +425,15 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           <motion.div {...fadeIn}>
             <h2 className="text-3xl font-bold mb-8">Interested in the full research?</h2>
             <div className="flex justify-center gap-4">
-              <a 
-                href={project.link} 
+              <a
+                href={project.link}
                 className="px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-transform flex items-center gap-2"
               >
                 <Github className="w-5 h-5" />
                 View Repository
               </a>
-              <Link 
-                href="/#contact" 
+              <Link
+                href="https://github.com/AJAjith0503/restaurant.git"
                 className="px-8 py-4 bg-neutral-900 border border-white/10 text-white rounded-full font-bold hover:bg-neutral-800 transition-colors"
               >
                 Let's Discuss
