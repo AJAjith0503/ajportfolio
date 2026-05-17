@@ -426,5 +426,51 @@ export const projects: Project[] = [
       'Performance Optimization for heavy animations and video backgrounds.',
       'Ensuring 100% mobile-responsive architecture with fluid typography.'
     ]
+  },
+  {
+    id: '10',
+    title: 'Furnexa',
+    type: 'Premium E-Commerce Furniture Storefront',
+    oneLineImpact: 'Developed a premium, highly responsive Single-Page React storefront for a luxury furniture e-commerce startup.',
+    description: 'A high-fidelity, interactive Single-Page Application (SPA) e-commerce storefront designed for luxury furniture retailers. Developed with modern web tools to deliver performance, aesthetics, and premium responsiveness.',
+    tags: ['React 19', 'TypeScript', 'React Router', 'Vanilla CSS3', 'Framer Motion', 'Vite', 'Lucide React'],
+    link: 'https://github.com/AJAjith0503/ecommercefurniture',
+    liveLink: 'https://ecommercefurniture-steel.vercel.app/',
+    problemStatement: {
+      text: 'Transitioning a high-end luxury furniture storefront to a dynamic SPA introduces challenges in scroll preservation, layout stability (Cumulative Layout Shift) from high-resolution imagery, and maintaining pixel-perfect responsiveness without losing luxury aesthetic immersion.',
+      stats: [
+        'Traditional multi-page reloads break user immersion and slow down conversions.',
+        'Heavy high-res imagery leads to Cumulative Layout Shift (CLS) on slow mobile connections.'
+      ]
+    },
+    motivation: [
+      'Deliver instant routing transition times (0ms) to maximize customer session flow.',
+      'Craft a highly visual, zero-CLS luxury product showcase that loads fast even on mobile edge networks.',
+      'Reflow multi-column headers and stack hero elements elegantly across all device sizes.'
+    ],
+    architecture: {
+      modules: [
+        { name: 'SPA Routing Engine', description: 'Single-Page navigation via React Router to eliminate slow full-page reloads and enable instant transition times.' },
+        { name: 'Fluid Design System', description: 'Modern responsive architecture utilizing clamp() fluid typography and custom Design Tokens.' },
+        { name: 'Framer-Motion Interactions', description: 'Scroll-triggered reveals, spring-based hover micro-animations, and slide-in drawer menus.' },
+        { name: 'Scroll Management Hook', description: 'Dedicated programmatic ScrollToTop context reset to snap viewport to (0,0) on route transition.' }
+      ]
+    },
+    metrics: [
+      { name: 'SPA Transition Latency', result: '0ms' },
+      { name: 'Cumulative Layout Shift', result: 'Zero CLS' },
+      { name: 'Production Build Compilation', result: '<400ms' }
+    ],
+    innovations: [
+      'ScrollToTop Restoration: Built a programmatic restoration hook that monitors location history to automatically snap the window viewport back to (0,0).',
+      'Aspect-Ratio Image Skeleton: Created strict aspect-ratio container tokens combined with loading skeletons to achieve zero layout shifting.',
+      'Dynamic Reflow Containers: Standards-driven Flex and Grid query adjustments that dynamically stack components cleanly down to 320px.'
+    ],
+    skills: ['React 19', 'TypeScript', 'React Router', 'Vanilla CSS', 'Framer Motion', 'Vite', 'Responsive Design', 'Web Performance'],
+    challenges: [
+      'Programmatic Scroll Management across active SPA route changes.',
+      'Image Optimization and wrapper layout bounds to eliminate layout shifting (CLS).',
+      'Handcrafting 100% responsive fluid grids and stackable layout structures without external frameworks like Tailwind.'
+    ]
   }
 ];
