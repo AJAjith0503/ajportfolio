@@ -10,6 +10,7 @@ import { projects } from '@/data/projects';
 export default function Projects() {
   const [cards, setCards] = useState(projects);
   const [isHovered, setIsHovered] = useState(false);
+  const total = projects.length;
 
   // Auto-swap feature
   useEffect(() => {
@@ -86,6 +87,19 @@ export default function Projects() {
 
                       {/* Depth Gradient */}
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Project Number — large watermark centered in card, behind content */}
+                      <div className={`absolute inset-0 flex items-center justify-center gap-2 select-none pointer-events-none z-0 transition-opacity duration-300 ${isFront ? 'opacity-100' : 'opacity-20'}`}>
+                        <span className="text-[8rem] md:text-[10rem] font-black tabular-nums leading-none text-white/[0.05]">
+                          {String(projects.findIndex((p) => p.id === project.id) + 1).padStart(2, '0')}
+                        </span>
+                        <div className="flex flex-col items-start gap-1">
+                          <span className="text-white/[0.04] text-2xl md:text-3xl font-light leading-none">/</span>
+                          <span className="text-white/[0.04] text-xl md:text-2xl font-medium tabular-nums leading-none">
+                            {String(total).padStart(2, '0')}
+                          </span>
+                        </div>
+                      </div>
 
                       <div className="relative">
                         <div className="flex items-start justify-between mb-4 md:mb-6">
@@ -182,6 +196,30 @@ export default function Projects() {
           <div className="hidden md:flex flex-col justify-center ml-20 max-w-md opacity-30 md:opacity-100 transition-opacity">
             <h3 className="text-3xl font-light text-white mb-4">Interactive Portfolio</h3>
             <p className="text-neutral-400 mb-6">Click on the top card to seamlessly cycle through my recent creative and technical endeavors.</p>
+
+            {/* Dot indicator row */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {projects.map((p, i) => (
+                <motion.button
+                  key={p.id}
+                  onClick={() => {
+                    // Rotate cards until desired project is at front
+                    setCards((prev) => {
+                      const idx = prev.findIndex((c) => c.id === p.id);
+                      return [...prev.slice(idx), ...prev.slice(0, idx)];
+                    });
+                  }}
+                  title={p.title}
+                  animate={{
+                    width: p.id === cards[0].id ? 28 : 8,
+                    backgroundColor: p.id === cards[0].id ? '#ffffff' : '#404040',
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="h-2 rounded-full"
+                />
+              ))}
+            </div>
+
             <div className="flex gap-2">
               <button
                 onClick={handleSwap}

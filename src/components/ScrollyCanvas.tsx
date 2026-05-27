@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
 
-const FRAME_COUNT = 160;
+const FRAME_COUNT = 300;
 
 const drawImage = (
   ctx: CanvasRenderingContext2D,
@@ -68,10 +68,10 @@ export default function ScrollyCanvas() {
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      const index = i.toString().padStart(3, '0');
+      const index = (i + 1).toString().padStart(3, '0');
       img.onload = handleImageLoad;
       img.onerror = handleImageLoad;
-      img.src = `/sequence/frame_${index}_delay-0.05s.png`;
+      img.src = `/sequence/ezgif-frame-${index}.jpg`;
       images.current.push(img);
     }
   }, []);
@@ -81,14 +81,12 @@ export default function ScrollyCanvas() {
     offset: ['start start', 'end end'],
   });
 
-  // Non-linear frame mapping to slow down during sections
-  // Hero (0-0.1), Edu (0.1-0.3), Skills (0.28-0.48), Projects (0.46-0.76), Internships (0.74-0.94), Contact (0.92-1.0)
+  // Non-linear frame mapping — synced with Overlay.tsx section windows:
+  // Hero (0-0.08), Edu (0.10-0.28), Skills (0.30-0.46), Projects (0.48-0.72), Internships (0.74-0.88), Contact (0.90-1.0)
   const frameIndex = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.15, 0.25, 0.3, 0.33, 0.43, 0.48, 0.51, 0.71, 0.76, 0.79, 0.89, 0.94, 0.97, 1.0],
-    [
-      0, 20, 25, 45, 50, 55, 75, 80, 85, 115, 120, 125, 145, 150, 155, 159
-    ]
+    [0,  0.08, 0.10, 0.28, 0.30, 0.46, 0.48, 0.72, 0.74, 0.88, 0.90, 1.0],
+    [0,  30,   37,   85,   94,  141,  150,  216,  225,  272,  281,  299]
   );
 
   const renderFrame = (index: number) => {
@@ -168,7 +166,7 @@ export default function ScrollyCanvas() {
         )}
       </AnimatePresence>
 
-      <div ref={containerRef} className="relative w-full h-[2000vh] bg-[#121212]">
+      <div ref={containerRef} className="relative w-full h-[2500vh] bg-[#121212]">
         <div className="sticky top-0 w-full h-screen overflow-hidden">
           <canvas ref={canvasRef} className="w-full h-full object-cover" />
         </div>

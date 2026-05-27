@@ -15,7 +15,7 @@ export default function Overlay() {
 
   const scrollToContact = () => {
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const targetScroll = totalHeight * 0.935;
+    const targetScroll = totalHeight * 0.952;
     const startScroll = window.scrollY;
     const distance = targetScroll - startScroll;
     const duration = 1800; // ms — longer = smoother feel
@@ -42,54 +42,47 @@ export default function Overlay() {
     offset: ['start start', 'end start'],
   });
 
-  // Hero Section components (0 to 0.3)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.05, 0.1], [1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.1], [0, -100]);
+  // ── Transition windows (strictly non-overlapping) ──────────────────────────
+  // Hero:        0.00 → 0.08  (fade out by 0.08)
+  // Education:   0.10 → 0.28  (fade in 0.10-0.14, hold, fade out 0.24-0.28)
+  // Skills:      0.30 → 0.46  (fade in 0.30-0.34, hold, fade out 0.42-0.46)
+  // Projects:    0.48 → 0.72  (fade in 0.48-0.52, hold, fade out 0.68-0.72)
+  // Internships: 0.74 → 0.88  (fade in 0.74-0.78, hold, fade out 0.84-0.88)
+  // Contact:     0.90 → 1.00  (fade in 0.90-0.95)
+  // ───────────────────────────────────────────────────────────────────────────
 
-  const pointerEvents1 = useTransform(scrollYProgress, [0, 0.1], ['auto', 'none']) as unknown as "auto" | "none";
+  // Hero
+  const opacity1 = useTransform(scrollYProgress, [0, 0.04, 0.08], [1, 1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.08], [0, -80]);
+  const pointerEvents1 = useTransform(scrollYProgress, [0, 0.08], ['auto', 'none']) as unknown as "auto" | "none";
 
-  // New Sections timings
-  // Education
-  const eduOpacity = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], [0, 1, 1, 0]);
-  const eduY = useTransform(scrollYProgress, [0.1, 0.3], [400, -100]);
-  const eduScale = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], [0.8, 1, 1, 0.8]);
-  const eduRotateX = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], [20, 0, 0, -20]);
-  const eduFilter = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
-  const eduPointer = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
+  // Education — smooth fade + slide only (no scale/blur pop)
+  const eduOpacity = useTransform(scrollYProgress, [0.10, 0.14, 0.24, 0.28], [0, 1, 1, 0]);
+  const eduY = useTransform(scrollYProgress, [0.10, 0.28], [40, -40]);
+  const eduPointer = useTransform(scrollYProgress, [0.10, 0.14, 0.24, 0.28], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
 
   // Skills
-  const skillsOpacity = useTransform(scrollYProgress, [0.28, 0.33, 0.43, 0.48], [0, 1, 1, 0]);
-  const skillsY = useTransform(scrollYProgress, [0.28, 0.48], [0, -200]);
-  const skillsScale = useTransform(scrollYProgress, [0.28, 0.33, 0.43, 0.48], [0.8, 1, 1, 0.8]);
-  const skillsRotateX = useTransform(scrollYProgress, [0.28, 0.33, 0.43, 0.48], [20, 0, 0, -20]);
-  const skillsFilter = useTransform(scrollYProgress, [0.28, 0.33, 0.43, 0.48], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
-  const skillsPointer = useTransform(scrollYProgress, [0.28, 0.33, 0.43, 0.48], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
+  const skillsOpacity = useTransform(scrollYProgress, [0.30, 0.34, 0.42, 0.46], [0, 1, 1, 0]);
+  const skillsY = useTransform(scrollYProgress, [0.30, 0.46], [40, -40]);
+  const skillsPointer = useTransform(scrollYProgress, [0.30, 0.34, 0.42, 0.46], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
 
   // Projects
-  const projOpacity = useTransform(scrollYProgress, [0.46, 0.51, 0.71, 0.76], [0, 1, 1, 0]);
-  const projY = useTransform(scrollYProgress, [0.46, 0.76], [100, -300]);
-  const projScale = useTransform(scrollYProgress, [0.46, 0.51, 0.71, 0.76], [0.8, 1, 1, 0.8]);
-  const projRotateX = useTransform(scrollYProgress, [0.46, 0.51, 0.71, 0.76], [20, 0, 0, -20]);
-  const projFilter = useTransform(scrollYProgress, [0.46, 0.51, 0.71, 0.76], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
-  const projPointer = useTransform(scrollYProgress, [0.46, 0.51, 0.71, 0.76], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
+  const projOpacity = useTransform(scrollYProgress, [0.48, 0.52, 0.68, 0.72], [0, 1, 1, 0]);
+  const projY = useTransform(scrollYProgress, [0.48, 0.72], [40, -40]);
+  const projPointer = useTransform(scrollYProgress, [0.48, 0.52, 0.68, 0.72], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
 
-  // Internships — fade out faster before Contact section (0.92)
-  const intOpacity = useTransform(scrollYProgress, [0.74, 0.79, 0.83, 0.88], [0, 1, 1, 0]);
-  const intY = useTransform(scrollYProgress, [0.74, 0.88], [200, -200]);
-  const intScale = useTransform(scrollYProgress, [0.74, 0.79, 0.83, 0.88], [0.8, 1, 1, 0.8]);
-  const intRotateX = useTransform(scrollYProgress, [0.74, 0.79, 0.83, 0.88], [20, 0, 0, -20]);
-  const intFilter = useTransform(scrollYProgress, [0.74, 0.79, 0.83, 0.88], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
-  const intPointer = useTransform(scrollYProgress, [0.74, 0.79, 0.83, 0.88], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
+  // Internships
+  const intOpacity = useTransform(scrollYProgress, [0.74, 0.78, 0.84, 0.88], [0, 1, 1, 0]);
+  const intY = useTransform(scrollYProgress, [0.74, 0.88], [40, -40]);
+  const intPointer = useTransform(scrollYProgress, [0.74, 0.78, 0.84, 0.88], ['none', 'auto', 'auto', 'none']) as unknown as "auto" | "none";
 
   // Contact
-  const contactOpacity = useTransform(scrollYProgress, [0.92, 0.97], [0, 1]);
-  const contactY = useTransform(scrollYProgress, [0.92, 1], [50, -50]);
-  const contactScale = useTransform(scrollYProgress, [0.92, 0.97], [0.9, 1]);
-  const contactFilter = useTransform(scrollYProgress, [0.92, 0.97], ["blur(5px)", "blur(0px)"]);
-  const contactPointer = useTransform(scrollYProgress, [0.92, 1], ['none', 'auto']) as unknown as "auto" | "none";
+  const contactOpacity = useTransform(scrollYProgress, [0.90, 0.95], [0, 1]);
+  const contactY = useTransform(scrollYProgress, [0.90, 1], [40, -20]);
+  const contactPointer = useTransform(scrollYProgress, [0.90, 1], ['none', 'auto']) as unknown as "auto" | "none";
 
   return (
-    <div ref={containerRef} className="absolute top-0 left-0 w-full h-[2000vh] pointer-events-none" id="home">
+    <div ref={containerRef} className="absolute top-0 left-0 w-full h-[2500vh] pointer-events-none" id="home">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* Section 1: Hero Text */}
@@ -122,11 +115,7 @@ export default function Overlay() {
 
         {/* Education */}
         <motion.div
-          style={{ 
-            opacity: eduOpacity, 
-            y: eduY, 
-            pointerEvents: eduPointer,
-          }}
+          style={{ opacity: eduOpacity, y: eduY, pointerEvents: eduPointer }}
           className="absolute inset-0 flex items-center justify-start p-6 md:p-8 md:pl-24 pointer-events-auto overflow-y-auto scrollbar-hide pt-20 md:pt-0"
         >
           <div className="w-full max-w-4xl">
@@ -136,11 +125,7 @@ export default function Overlay() {
 
         {/* Skills */}
         <motion.div
-          style={{ 
-            opacity: skillsOpacity, 
-            y: skillsY, 
-            pointerEvents: skillsPointer,
-          }}
+          style={{ opacity: skillsOpacity, y: skillsY, pointerEvents: skillsPointer }}
           className="absolute inset-0 flex items-center justify-start p-6 md:p-8 md:pl-24 pointer-events-auto"
         >
           <div className="w-full max-w-7xl">
@@ -150,11 +135,7 @@ export default function Overlay() {
 
         {/* Projects */}
         <motion.div
-          style={{ 
-            opacity: projOpacity, 
-            y: projY, 
-            pointerEvents: projPointer,
-          }}
+          style={{ opacity: projOpacity, y: projY, pointerEvents: projPointer }}
           className="absolute inset-0 flex items-center justify-start p-6 md:p-8 md:pl-24 pointer-events-auto"
         >
           <div className="w-full max-w-7xl">
@@ -164,25 +145,17 @@ export default function Overlay() {
 
         {/* Internships */}
         <motion.div
-          style={{ 
-            opacity: intOpacity, 
-            y: intY, 
-            pointerEvents: intPointer,
-          }}
+          style={{ opacity: intOpacity, y: intY, pointerEvents: intPointer }}
           className="absolute inset-0 flex items-center justify-start p-6 md:p-8 md:pl-24 pointer-events-auto overflow-y-auto scrollbar-hide pt-20 md:pt-0"
         >
-          <div className="w-full max-w-7xl" style={{ marginTop: '-100px' }}>
+          <div className="w-full max-w-7xl">
             <Internships />
           </div>
         </motion.div>
 
         {/* Contact */}
         <motion.div
-          style={{ 
-            opacity: contactOpacity, 
-            y: contactY, 
-            pointerEvents: contactPointer 
-          }}
+          style={{ opacity: contactOpacity, y: contactY, pointerEvents: contactPointer }}
           className="absolute inset-0 flex items-center justify-start p-6 md:p-8 md:pl-24 pointer-events-auto"
         >
           <div className="w-full max-w-5xl">
