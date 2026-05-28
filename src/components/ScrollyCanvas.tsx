@@ -175,30 +175,54 @@ export default function ScrollyCanvas() {
             transition={{ duration: 0.8, ease: "easeInOut" }}
             className="fixed inset-0 z-[9999] bg-[#121212] flex flex-col items-center justify-center"
           >
-            <div className="flex flex-col items-center gap-8">
-              <div className="relative w-32 h-32 md:w-44 md:h-44 mb-4">
-                {/* Glowing ring */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/20 via-white/5 to-transparent animate-spin" style={{ animationDuration: '3s' }} />
-                <div className="absolute inset-[3px] rounded-full bg-[#121212]" />
-                {/* Logo image in circle */}
-                <div className="absolute inset-[3px] rounded-full overflow-hidden flex items-center justify-center bg-neutral-900 shadow-[0_0_30px_rgba(255,255,255,0.08)]">
+            <div className="flex flex-col items-center gap-6">
+              {/* Logo + circular progress ring */}
+              <div className="relative w-36 h-36 md:w-48 md:h-48">
+                {/* SVG circular progress ring — starts at 12 o'clock (-90° rotation) */}
+                <svg
+                  className="absolute inset-0 w-full h-full -rotate-90"
+                  viewBox="0 0 200 200"
+                >
+                  {/* Background track */}
+                  <circle
+                    cx="100" cy="100" r="92"
+                    fill="none"
+                    stroke="#262626"
+                    strokeWidth="4"
+                  />
+                  {/* Animated progress arc */}
+                  <motion.circle
+                    cx="100" cy="100" r="92"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeDasharray={578.05}
+                    initial={{ strokeDashoffset: 578.05 }}
+                    animate={{ strokeDashoffset: 578.05 * (1 - loadedCount / FRAME_COUNT) }}
+                    transition={{ duration: 0.15, ease: "linear" }}
+                  />
+                </svg>
+
+                {/* Logo image centered inside the ring */}
+                <div className="absolute inset-[10px] rounded-full overflow-hidden flex items-center justify-center bg-neutral-900 shadow-[0_0_40px_rgba(255,255,255,0.06)]">
                   <img
                     src="/images/logo.png"
                     alt="AJ Logo"
                     className="w-full h-full object-cover"
                   />
                 </div>
+
+                {/* Percentage overlay in center */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-white text-xs font-bold tracking-wider opacity-60">
+                    {Math.round((loadedCount / FRAME_COUNT) * 100)}%
+                  </span>
+                </div>
               </div>
-              <div className="w-64 h-1 bg-neutral-800 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-white"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${(loadedCount / FRAME_COUNT) * 100}%` }}
-                  transition={{ duration: 0.1 }}
-                />
-              </div>
-              <span className="text-neutral-500 text-sm tracking-widest uppercase font-medium">
-                Loading Experience {Math.round((loadedCount / FRAME_COUNT) * 100)}%
+
+              <span className="text-neutral-500 text-xs tracking-widest uppercase font-medium">
+                Loading Experience
               </span>
             </div>
           </motion.div>
