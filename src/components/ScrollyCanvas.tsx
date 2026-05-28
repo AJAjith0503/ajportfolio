@@ -213,12 +213,7 @@ export default function ScrollyCanvas() {
                   />
                 </div>
 
-                {/* Percentage overlay in center */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-white text-xs font-bold tracking-wider opacity-60">
-                    {Math.round((loadedCount / FRAME_COUNT) * 100)}%
-                  </span>
-                </div>
+
               </div>
 
               <span className="text-neutral-500 text-xs tracking-widest uppercase font-medium">
