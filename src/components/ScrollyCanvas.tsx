@@ -3,7 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
 
-const FRAME_COUNT = 300;
+const FRAME_COUNT = 500;
+
+// Lerp factor: higher = snappier, lower = more lag/smoothness (0.12–0.2 is ideal)
+const LERP_FACTOR = 0.15;
 
 const drawImage = (
   ctx: CanvasRenderingContext2D,
@@ -15,7 +18,7 @@ const drawImage = (
   const ratio = Math.max(hRatio, vRatio);
   const centerShift_x = (canvas.width - img.width * ratio) / 2;
   const centerShift_y = (canvas.height - img.height * ratio) / 2;
-  
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(
     img,
@@ -37,11 +40,20 @@ export default function ScrollyCanvas() {
   const [loadedCount, setLoadedCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // For smooth lerp animation
+  const currentFrameRef = useRef(0);
+  const targetFrameRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.scrollTo(0, 0);
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
+      }
+      // Only reset scroll if there's no saved position to restore
+      const savedY = sessionStorage.getItem('portfolioScrollY');
+      if (!savedY) {
+        window.scrollTo(0, 0);
       }
     }
 
@@ -49,6 +61,15 @@ export default function ScrollyCanvas() {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      // Restore scroll position if user came back from a case study
+      const savedY = sessionStorage.getItem('portfolioScrollY');
+      if (savedY) {
+        sessionStorage.removeItem('portfolioScrollY');
+        // Use requestAnimationFrame to ensure DOM is fully painted before scrolling
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: parseInt(savedY, 10), behavior: 'instant' });
+        });
+      }
     }
     return () => {
       document.body.style.overflow = '';
@@ -81,31 +102,51 @@ export default function ScrollyCanvas() {
     offset: ['start start', 'end end'],
   });
 
-  // Non-linear frame mapping — synced with Overlay.tsx section windows:
+  // Non-linear frame mapping — proportionally scaled to 500 frames.
+  // Synced with Overlay.tsx section windows:
   // Hero (0-0.08), Edu (0.10-0.28), Skills (0.30-0.46), Projects (0.48-0.72), Internships (0.74-0.88), Contact (0.90-1.0)
   const frameIndex = useTransform(
     scrollYProgress,
-    [0,  0.08, 0.10, 0.28, 0.30, 0.46, 0.48, 0.72, 0.74, 0.88, 0.90, 1.0],
-    [0,  30,   37,   85,   94,  141,  150,  216,  225,  272,  281,  299]
+    [0,   0.08, 0.10, 0.28, 0.30, 0.46, 0.48, 0.72, 0.74, 0.88, 0.90, 1.0],
+    [0,   50,   62,  142,  157,  235,  250,  360,  375,  453,  468,  499]
   );
 
   const renderFrame = (index: number) => {
     const canvas = canvasRef.current;
-    if (images.current[index] && canvas) {
-      const ctx = canvas.getContext('2d');
-      // Ensure image is loaded before drawing
-      if (images.current[index].complete && ctx) {
-        drawImage(ctx, images.current[index], canvas);
-      } else {
-        images.current[index].onload = () => {
-          if (ctx) drawImage(ctx, images.current[index], canvas);
-        };
-      }
+    const img = images.current[index];
+    if (!img || !canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    if (img.complete && img.naturalWidth > 0) {
+      drawImage(ctx, img, canvas);
     }
   };
 
+  // Smooth lerp loop — runs on rAF, interpolates current → target frame
+  useEffect(() => {
+    const animate = () => {
+      const target = targetFrameRef.current;
+      const current = currentFrameRef.current;
+      const diff = target - current;
+
+      // Only re-render if the frame actually changes
+      if (Math.abs(diff) > 0.1) {
+        currentFrameRef.current = current + diff * LERP_FACTOR;
+        renderFrame(Math.round(currentFrameRef.current));
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Update target frame on scroll
   useMotionValueEvent(frameIndex, 'change', (latest) => {
-    renderFrame(Math.round(latest));
+    targetFrameRef.current = Math.max(0, Math.min(FRAME_COUNT - 1, latest));
   });
 
   // Handle Resize & Initial Draw
@@ -114,13 +155,11 @@ export default function ScrollyCanvas() {
       if (canvasRef.current) {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
-        renderFrame(Math.round(frameIndex.get()));
+        renderFrame(Math.round(currentFrameRef.current));
       }
     };
 
     window.addEventListener('resize', handleResize);
-    
-    // Slight delay to ensure first image might be loaded
     setTimeout(handleResize, 100);
 
     return () => window.removeEventListener('resize', handleResize);
@@ -143,15 +182,15 @@ export default function ScrollyCanvas() {
                 <div className="absolute inset-[3px] rounded-full bg-[#121212]" />
                 {/* Logo image in circle */}
                 <div className="absolute inset-[3px] rounded-full overflow-hidden flex items-center justify-center bg-neutral-900 shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                  <img 
-                    src="/images/logo.png" 
-                    alt="AJ Logo" 
-                    className="w-full h-full object-cover" 
+                  <img
+                    src="/images/logo.png"
+                    alt="AJ Logo"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
               <div className="w-64 h-1 bg-neutral-800 rounded-full overflow-hidden">
-                <motion.div 
+                <motion.div
                   className="h-full bg-white"
                   initial={{ width: 0 }}
                   animate={{ width: `${(loadedCount / FRAME_COUNT) * 100}%` }}

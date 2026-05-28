@@ -176,7 +176,11 @@ export default function Projects() {
                             <Link
                               href={`/projects/${project.id}`}
                               className="group/btn relative px-6 py-3 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest overflow-hidden transition-all duration-300 hover:pr-10"
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // Save scroll position so we can restore it on back navigation
+                                sessionStorage.setItem('portfolioScrollY', String(window.scrollY));
+                              }}
                             >
                               <span className="relative z-10">View Case Study</span>
                               <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover/btn:opacity-100 transition-all duration-300 translate-x-2 group-hover/btn:translate-x-0">
