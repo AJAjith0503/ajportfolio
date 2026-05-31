@@ -1,18 +1,99 @@
-import ScrollyCanvas from '@/components/ScrollyCanvas';
-import Overlay from '@/components/Overlay';
+'use client';
+
+import { useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Preloader from '@/components/Preloader';
+import Education from '@/components/Education';
+import Skills from '@/components/Skills';
+import Projects from '@/components/Projects';
+import Internships from '@/components/Internships';
+import Contact from '@/components/Contact';
 import { Mail, Phone, Linkedin, Github } from 'lucide-react';
 
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  // Parallax effect: image moves up slightly slower than the scroll speed
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      const savedY = sessionStorage.getItem('portfolioScrollY');
+      if (savedY) {
+        sessionStorage.removeItem('portfolioScrollY');
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: parseInt(savedY, 10), behavior: 'instant' });
+        });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, []);
+
+  const scrollToContact = () => {
+    const el = document.getElementById('contact');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <main className="bg-[#121212] min-h-screen selection:bg-neutral-800 selection:text-white">
-      {/* Hero section containing the canvas and the synchronized scroll text, along with all content */}
-      <section className="relative w-full">
-        <ScrollyCanvas />
-        <Overlay />
+    <main className="bg-[#121212] min-h-screen selection:bg-neutral-800 selection:text-white flex flex-col relative">
+      
+      {/* Global Parallax Background */}
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="fixed top-0 left-0 w-full h-[125vh] pointer-events-none z-0 opacity-100"
+      >
+        {/* Replace this src with your actual image path */}
+        <img 
+          src="/images/background.jpg" 
+          alt="Background" 
+          className="w-full h-full object-cover"
+        />
+        {/* Light overlay to ensure text remains readable without hiding the image */}
+        <div className="absolute inset-0 bg-black/30" />
+      </motion.div>
+
+      {/* Content Wrapper */}
+      <div className="relative z-10 flex flex-col w-full">
+        <Preloader />
+        {/* Hero Section */}
+        <section className="relative w-full min-h-screen flex items-center justify-start p-6 md:p-8 md:pl-24" id="home">
+          <div className="flex flex-col items-start gap-4 md:gap-6">
+            <h1 className="text-4xl md:text-8xl font-bold tracking-tighter text-white drop-shadow-xl text-left">
+            AJITH K V<br />
+          </h1>
+          <p className="text-lg md:text-2xl text-neutral-300 font-light tracking-wide text-left max-w-sm md:max-w-xl">
+            Creative Frontend Developer & Design Enthusiast
+          </p>
+          <div className="flex flex-wrap gap-4 mt-4">
+            <a href="https://drive.google.com/file/d/1vk7wMwu0GBnxhMGTzD1ld2_tDmLaf2Fd/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white text-black rounded-full font-medium hover:scale-105 transition-transform text-sm md:text-base">
+              Resume
+            </a>
+            <button 
+              onClick={scrollToContact}
+              className="px-6 py-3 bg-neutral-900/50 backdrop-blur-md border border-neutral-700 text-white rounded-full font-medium hover:bg-neutral-800 transition-colors text-sm md:text-base cursor-pointer"
+            >
+              Contact Me
+            </button>
+          </div>
+        </div>
       </section>
 
+      {/* Content Sections */}
+      <div className="flex flex-col gap-32 md:gap-48 px-6 md:px-8 pb-32 overflow-hidden w-full max-w-full">
+        <Education />
+        <Skills />
+        <Projects />
+        <Internships />
+        <div className="flex justify-start md:pl-16">
+          <Contact />
+        </div>
+      </div>
+
       {/* Footer */}
-      <footer className="w-full py-24 border-t border-neutral-800/50 bg-[#121212] flex flex-col items-center justify-center gap-16 px-6 md:px-12 lg:px-24">
+      <footer className="w-full py-24 border-t border-neutral-800/50 bg-[#121212] flex flex-col items-center justify-center gap-16 px-6 md:px-12 lg:px-24 mt-auto">
         <div className="max-w-7xl w-full flex flex-col gap-12 justify-between items-start">
           <div className="flex flex-col">
             <span className="text-neutral-500 font-medium tracking-widest uppercase text-xs mb-2 block">Get In Touch</span>
@@ -59,6 +140,7 @@ export default function Home() {
           <a href="#home" className="text-neutral-300 hover:text-white transition-colors text-sm">Back to top ↑</a>
         </div>
       </footer>
+      </div>
     </main>
   );
 }
