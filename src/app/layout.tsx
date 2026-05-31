@@ -14,11 +14,11 @@ const anthropicFont = Lora({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ajportfolio-one.vercel.app'),
   title: {
-    default: 'Ajith K V — Creative Developer',
+    default: 'Ajith K V — AI Agent & Automation Engineer',
     template: '%s | Ajith K V',
   },
   description:
-    'Full-stack developer & creative technologist specializing in AI-powered products, immersive web experiences, and modern UI/UX.',
+    'AI Engineer specializing in building autonomous AI agents, intelligent workflows, and scalable automation systems.',
   keywords: [
     'Ajith K V',
     'Creative Developer',
@@ -33,24 +33,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://ajportfolio-one.vercel.app',
-    title: 'Ajith K V — Creative Developer',
+    title: 'Ajith K V — AI Agent & Automation Engineer',
     description:
-      'Full-stack developer & creative technologist specializing in AI-powered products, immersive web experiences, and modern UI/UX.',
+      'AI Engineer specializing in building autonomous AI agents, intelligent workflows, and scalable automation systems.',
     siteName: 'Ajith K V Portfolio',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ajith K V — Creative Developer Portfolio',
+        alt: 'Ajith K V — AI Agent & Automation Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ajith K V — Creative Developer',
+    title: 'Ajith K V — AI Agent & Automation Engineer',
     description:
-      'Full-stack developer & creative technologist specializing in AI-powered products and immersive web experiences.',
+      'AI Engineer specializing in building autonomous AI agents, intelligent workflows, and scalable automation systems.',
     images: ['/images/og-image.png'],
   },
   robots: {

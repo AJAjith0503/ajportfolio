@@ -65,7 +65,7 @@ export default function Home() {
             AJITH K V<br />
           </h1>
           <p className="text-lg md:text-2xl text-neutral-300 font-light tracking-wide text-left max-w-sm md:max-w-xl">
-            Creative Frontend Developer & Design Enthusiast
+            Building Autonomous AI Agents & Intelligent Automation
           </p>
           <div className="flex flex-wrap gap-4 mt-4">
             <a href="https://drive.google.com/file/d/1vk7wMwu0GBnxhMGTzD1ld2_tDmLaf2Fd/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white text-black rounded-full font-medium hover:scale-105 transition-transform text-sm md:text-base">
