@@ -68,7 +68,7 @@ export default function Home() {
             Building Autonomous AI Agents & Intelligent Automation
           </p>
           <div className="flex flex-wrap gap-4 mt-4">
-            <a href="https://drive.google.com/file/d/1vk7wMwu0GBnxhMGTzD1ld2_tDmLaf2Fd/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white text-black rounded-full font-medium hover:scale-105 transition-transform text-sm md:text-base">
+            <a href="https://drive.google.com/file/d/15qfz3lHh6FYQCCN79QrMXDpdAUlfWp_h/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white text-black rounded-full font-medium hover:scale-105 transition-transform text-sm md:text-base">
               Resume
             </a>
             <button 
